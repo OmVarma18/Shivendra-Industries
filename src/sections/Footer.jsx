@@ -61,14 +61,16 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <Phone size={16} className="mr-2 text-[#E10000]" />
-                <a href="tel:+91-XXXXXXXXXX" className="text-sm hover:text-[#E10000] transition-colors">
+                <a href="tel:+91-XXXXXXXXXX" className="text-sm transition-all duration-300 relative group">
                   +91-XXXXXXXXXX
+                  <span className="absolute left-0 bottom-0 w-full h-0.5 bg-[#E10000] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
                 </a>
               </div>
               <div className="flex items-center">
                 <Mail size={16} className="mr-2 text-[#E10000]" />
-                <a href="mailto:info@shivendra.com" className="text-sm hover:text-[#E10000] transition-colors">
-                  info@shivendra.com
+                <a href="mailto:shivendraindustries@rediffmail.com" className="text-sm transition-all duration-300 relative group">
+                  shivendraindustries@rediffmail.com
+                  <span className="absolute left-0 bottom-0 w-full h-0.5 bg-[#E10000] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
                 </a>
               </div>
             </div>
