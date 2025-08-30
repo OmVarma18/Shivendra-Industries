@@ -17,7 +17,7 @@ const Hero = () => {
             <span className="text-[#E10000]">Industry Leaders</span>
           </h1>
           <p className="text-xl sm:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto">
-            Shivendra Industries delivers cost-effective, long-lasting, and compliant solutions 
+            Shivendra Industries delivers long-lasting, and compliant solutions 
             trusted by top industrial clients.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

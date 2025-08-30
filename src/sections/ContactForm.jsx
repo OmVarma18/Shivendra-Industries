@@ -3,6 +3,7 @@ import { Send, User, Building, Phone, ArrowRight, ArrowLeft } from 'lucide-react
 
 const ContactForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [status, setStatus] = useState('Get My Quote');
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -49,10 +50,30 @@ const ContactForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Quotation request submitted successfully! We will contact you within 24 hours.');
-    console.log('Form Data to Send:', formData);
+    setStatus('Sending...');
+
+    try {
+      const response = await fetch('/.netlify/functions/submit-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString(),
+      });
+
+      if (response.ok) {
+        setStatus('Submitted Successfully!');
+        alert('Quotation request submitted! We will contact you within 24 hours.');
+        // Optionally reset form after a delay or navigate away
+      } else {
+        throw new Error('Network response was not ok.');
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      setStatus('Submission Failed');
+      alert('There was an error submitting your request. Please try again.');
+    }
   };
 
   const renderStep = () => {
@@ -101,7 +122,7 @@ const ContactForm = () => {
         );
       case 2:
         return (
-          <div className="space-y-6">
+          <div className="space-y-6 mb-16">
             <h3 className="text-xl font-semibold text-text mb-4">Project Details</h3>
             <select
               name="projectType"
@@ -221,7 +242,7 @@ const ContactForm = () => {
                   <button
                     type="button"
                     onClick={handleNext}
-                    className="btn bg-[#E10000] text-white flex items-center ml-auto"
+                    className="btn  text-[#E10000] flex items-center ml-auto"
                   >
                     Next
                     <ArrowRight className="ml-2" size={20} />
@@ -230,9 +251,10 @@ const ContactForm = () => {
                   <button
                     type="submit"
                     className="btn bg-[#E10000] text-white flex items-center ml-auto"
+                    disabled={status === 'Sending...'}
                   >
                     <Send className="mr-2" size={20} />
-                    Get My Quote
+                    {status}
                   </button>
                 )}
               </div>
@@ -240,26 +262,18 @@ const ContactForm = () => {
           </div>
 
           {/* Contact Info */}
-          {/* <div className="grid sm:grid-cols-2 gap-6 mt-12">
-            <div 
-              className="text-center p-6 bg-background rounded-xl
-                         hover:shadow-lg hover:scale-[1.02] transition-all duration-300 ease-in-out
-                         focus-within:shadow-lg focus-within:scale-[1.02]" // Added cursor-pointer
-              tabIndex="0" // Make it focusable
-            >
-              <h4 className="font-semibold text-text mb-2">Quick Response</h4>
-              <p className="text-gray-600">Within 24 hours</p>
+                    <div className="grid sm:grid-cols-2 gap-8 mt-12 pb-16">
+            <div className="text-center p-8 bg-white rounded-xl shadow-lg border border-gray-100 
+                        hover:scale-105 hover:shadow-xl transition-all duration-300 transform cursor-pointer">
+              <h4 className="font-bold text-2xl text-gray-800 mb-3">Quick Response</h4>
+              <p className="text-lg text-gray-600">Within 24 business hours</p>
             </div>
-            <div 
-              className="text-center p-6 bg-background rounded-xl
-                         hover:shadow-lg hover:scale-[1.02] transition-all duration-300 ease-in-out
-                         focus-within:shadow-lg focus-within:scale-[1.02] " // Added cursor-pointer
-              tabIndex="0" // Make it focusable
-            >
-              <h4 className="font-semibold text-text mb-2">Free Consultation</h4>
-              <p className="text-gray-600">No obligation quote</p>
+            <div className="text-center p-8 bg-white rounded-xl shadow-lg border border-gray-100 
+                        hover:scale-105 hover:shadow-xl transition-all duration-300 transform cursor-pointer">
+              <h4 className="font-bold text-2xl text-gray-800 mb-3">Free Consultation</h4>
+              <p className="text-lg text-gray-600">No-obligation expert quote</p>
             </div>
-          </div> */}
+          </div>
         </div> 
       </div> 
     </section> 

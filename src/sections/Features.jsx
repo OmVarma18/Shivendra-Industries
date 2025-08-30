@@ -5,7 +5,7 @@ const Features = () => {
   const features = [
     {
       icon: Calendar,
-      title: '15+ years FRP expertise',
+      title: '20+ years FRP expertise',
       description: 'Extensive experience in fiber-reinforced plastic solutions'
     },
     {
@@ -66,7 +66,7 @@ const Features = () => {
               Join the growing list of industrial leaders who trust Shivendra Industries 
               for their critical FRP solutions and tank restoration needs.
             </p>
-            <a href="#contact" className="btn bg-[#E10000] text-white">
+            <a href="#contact" className="btn text-[#E10000]">
               Start Your Project Today
             </a>
           </div>
